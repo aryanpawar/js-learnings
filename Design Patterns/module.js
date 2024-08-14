@@ -1,4 +1,4 @@
-const musicPlayer = function () {
+const musicPlayer = (function () {
   let current = 0;
   // Let's make sure no one can directly access our songList
   const songList = ["Blue Eyes", "Why This Kolavari Di", "Dastaan"];
@@ -44,9 +44,9 @@ const musicPlayer = function () {
     playNext: playNextSong,
     addTrack: addTrackToMusicQueue,
   };
-};
+})();
 
-const musicModule = musicPlayer();
+const musicModule = musicPlayer;
 musicModule.playMusic();
 musicModule.pauseMusic();
 musicModule.showNextTrack();
@@ -58,5 +58,5 @@ musicModule.playNext();
 musicModule.playNext();
 
 // Things we can't access...
-musicModule.loadSong(); // error: not a function
-musicModule.songList.push("White Rabbit"); // undefined error
+// musicModule.loadSong(); // error: not a function
+// musicModule.songList.push("White Rabbit"); // undefined error

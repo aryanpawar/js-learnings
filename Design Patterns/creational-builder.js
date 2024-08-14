@@ -1,29 +1,3 @@
-const kida1 = {
-  name: "Zural",
-  phrase: "Kaala Hit Can't Defeat Me!",
-};
-
-const kida2 = {
-  name: "Daas",
-  phrase: "Laal Hit Can't Defeat Me!",
-};
-
-const addFlyingAbility = (obj) => {
-  obj.fly = () => console.log(`Now ${obj.name} can fly!`);
-};
-
-const addSpeechAbility = (obj) => {
-  obj.saySmthg = () => console.log(`${obj.phrase}`);
-};
-
-addFlyingAbility(kida1);
-kida1.fly();
-
-addSpeechAbility(kida2);
-kida2.saySmthg();
-
-// -----------------------------------------------------------
-
 // ******* Without Builder Pattern *******
 
 // class Address {

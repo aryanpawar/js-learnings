@@ -52,3 +52,5 @@ function run() {
 }
 
 run();
+
+// Used for changing algorithm at runtime
