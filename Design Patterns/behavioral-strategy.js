@@ -1,5 +1,5 @@
 const Shipping = function () {
-  this.company = "";
+  this.company = null;
 };
 
 Shipping.prototype = {
@@ -34,10 +34,9 @@ const Fedex = function () {
 };
 
 function run() {
-  const package = { from: "76712", to: "10012", weigth: "5kg" };
+  const package = { from: "Pune", to: "Phaltan", weigth: "5kg" };
 
-  // the 3 strategies
-
+  // Strategies
   const ups = new UPS();
   const usps = new USPS();
   const fedex = new Fedex();

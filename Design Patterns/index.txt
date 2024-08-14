@@ -1,4 +1,4 @@
-23 Classical Design Patterns (26 discovered to date)
+23 Classical Design Patterns (~26 discovered to date)
 
 Types Of Design Patterns
 

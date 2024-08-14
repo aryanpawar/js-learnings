@@ -1,41 +1,89 @@
-class OrderManager {
+class Calculator {
   constructor() {
-    this.orders = [];
+    this.value = 0;
+    this.history = [];
   }
 
-  execute(command, ...args) {
-    return command.execute(this.orders, ...args);
+  executeCommand(command) {
+    this.value = command.execute(this.value);
+    this.history.push(command);
+  }
+
+  undo() {
+    const command = this.history.pop();
+    this.value = command.undo(this.value);
   }
 }
 
-class Command {
-  constructor(execute) {
-    this.execute = execute;
+class AddCommand {
+  constructor(valueToAdd) {
+    this.valueToAdd = valueToAdd;
+  }
+
+  execute(currentValue) {
+    return currentValue + this.valueToAdd;
+  }
+
+  undo(currentValue) {
+    return currentValue - this.valueToAdd;
   }
 }
 
-function PlaceOrderCommand(order, id) {
-  return new Command((orders) => {
-    orders.push(id);
-    console.log(`You have successfully ordered ${order} (${id})`);
-  });
+class SubtractCommand {
+  constructor(valueToSubtract) {
+    this.valueToSubtract = valueToSubtract;
+  }
+
+  execute(currentValue) {
+    return currentValue - this.valueToSubtract;
+  }
+
+  undo(currentValue) {
+    return currentValue + this.valueToSubtract;
+  }
 }
 
-function CancelOrderCommand(id) {
-  return new Command((orders) => {
-    orders = orders.filter((order) => order.id !== id);
-    console.log(`You have canceled your order ${id}`);
-  });
+class MultiplyCommand {
+  constructor(valueToMultiply) {
+    this.valueToMultiply = valueToMultiply;
+  }
+
+  execute(currentValue) {
+    return currentValue * this.valueToMultiply;
+  }
+
+  undo(currentValue) {
+    return currentValue / this.valueToMultiply;
+  }
 }
 
-function TrackOrderCommand(id) {
-  return new Command(() =>
-    console.log(`Your order ${id} will arrive in 20 minutes.`)
-  );
+class DivideCommand {
+  constructor(valueToDivide) {
+    this.valueToDivide = valueToDivide;
+  }
+
+  execute(currentValue) {
+    return currentValue / this.valueToDivide;
+  }
+
+  undo(currentValue) {
+    return currentValue * this.valueToDivide;
+  }
 }
 
-const manager = new OrderManager();
+class AddThenMultiplyCommand {
+  constructor(valueToAdd, valueToMultiply) {
+    this.addCommand = new AddCommand(valueToAdd);
+    this.multiplyCommand = new MultiplyCommand(valueToMultiply);
+  }
 
-manager.execute(new PlaceOrderCommand("iPad", "1234"));
-manager.execute(new TrackOrderCommand("1234"));
-manager.execute(new CancelOrderCommand("1234"));
+  execute(currentValue) {
+    const newValue = this.addCommand.execute(currentValue);
+    return this.multiplyCommand.execute(newValue);
+  }
+
+  undo(currentValue) {
+    const newValue = this.multiplyCommand.undo(currentValue);
+    return this.addCommand.undo(newValue);
+  }
+}

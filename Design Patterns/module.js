@@ -1,7 +1,7 @@
-var musicPlayer = function () {
+const musicPlayer = function () {
   let current = 0;
   // Let's make sure no one can directly access our songList
-  var songList = ["Blue Eyes", "Why This Kolavari Di", "Dastaan"];
+  const songList = ["Blue Eyes", "Why This Kolavari Di", "Dastaan"];
 
   // We'll expose all these functions to the user
   function play() {
@@ -34,7 +34,7 @@ var musicPlayer = function () {
   function loadSong() {
     console.log(`Loaded ${songList[current + 1]}`);
     current++;
-    // filesystem.loadNextSong();
+    // filesystem.loadNextSong(); // Sample File Operation
   }
 
   return {
